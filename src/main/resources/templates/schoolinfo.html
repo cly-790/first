@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>高考志愿汇-高校信息</title>
+		<link rel="stylesheet" href="./高考志愿汇/ipin-ico.css" />
+		<link rel="stylesheet" href="./高考志愿汇/base.css" />
+		<link rel="stylesheet" href="./高考志愿汇/school.css" />
+		<link rel="stylesheet" href="./高考志愿汇/gaokao.min.css" />
+		<link rel="stylesheet" type="text/css" href="./高考志愿汇/htmleaf-demo.css">
+	</head>
+	<body>
+		<div class="g-head">
+			<common-head></common-head>
+			<div class="m-main-menu-wrap">
+				<div class="m-main-holder clear">
+					<div class="m-main-menu content">
+						<div class="logo-gkzyh fl">
+							<a href="index.html"><img class="logo" src="./高考志愿汇/logo-v7.png" /></a>
+						</div>
+						<div class="m-search">
+							<div class="m-input searchBar clear">
+								<input type="text" placeholder="搜索学校、专业" class="js-searchField" />
+								<i class="u-search js-searchIcon"></i>
+								<a href="javascript:;" class="f-btn js-searchBtn ">搜索</a>
+							</div>
+						</div>
+						<div class="m-time-end"></div>
+					</div>
+				</div>
+				<div class="m-nav-warp clear">
+					<ul class="content">
+						<li class="index"><a href="index.html">首页</a></li>
+						<li class="zhiyuan"><a href="applysch.html">填志愿</a></li>
+						<li class="findSchool active"><a href="schoolinfo.html">找学校</a></li>
+						<li class="findMajor"><a href="findMajor.html">找专业</a></li>
+						<li class="rankingList"><a href="">排行榜</a></li>
+						<li class="solve"><a href="solve.html">报考指导</a></li>
+						<li class="product"><a href="login.html">个人中心</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="g-school">
+			<div class="content">
+				<div class="crumb">
+					<ul>
+						<li><a href="index.html">首页</a></li>
+						<li>&gt;</li>
+						<li><a href="javascript:;">院校大全</a></li>
+					</ul>
+				</div>
+				<div class="">
+					<div class="m-sch-search searchBar">
+						<input type="text" placeholder="搜索你感兴趣的学校" class="js-searchField" />
+						<span class="js-searchBtn b-search" href="javascrit:;">搜索</span>
+						<div class="dropdown-box js-dropdownBox"></div>
+					</div>
+				</div>
+				<div id="school_block">
+					<div class="subnav-box">
+						<dl class="clear" id="screen">
+							<dt>
+								学校地区:
+							</dt>
+							<dd>
+								<ul class="clear" id="prov_filter" type="radio">
+									<li class="tag active" value="不限">不限</li>
+									<li class="tag" v-for="(p,index) in place" v-bind:value="value[index]">{{p}}</li>
+								</ul>
+							</dd>
+							<dt>
+								学校类型:
+							</dt>
+							<dd>
+								<ul class="clear" id="type_filter" type="radio">
+									<li class="tag active" value="不限">不限</li>
+									<li class="tag " v-for="type in types" v-bind:value="type+'院校'">{{type}}</li>
+								</ul>
+							</dd>
+							<dt>
+								学校级别:
+							</dt>
+							<dd>
+								<ul class="clear" id="diploma_filter" type="radio">
+									<li class="tag active">不限</li>
+									<li class="tag " v-for="level in levels">{{level}}</li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<div class="yxk-table">
+						<table class="ch-table">
+							<thead>
+								<tr>
+									<th width="25%">院校名称</th>
+									<th>院校代码</th>
+									<th width="15%">院校所在地</th>
+									<th width="15%">院校类型</th>
+									<th width="15%">学历层次</th>
+									<th width="15%">评分</th>
+								</tr>
+							</thead>
+							<tbody id="schinfo">
+							</tbody>
+						</table>
+						<br />
+						<!--       <div class="gb_pages"> 
+       <div class="gb_page_con clear"> 
+        <a href="index.htmlapi/school-00-0-0-0#" class="page gb_page_cur" value="1">1</a> 
+        <a href="index.htmlapi/school-00-0-0-0#" class="page" value="2">2</a> 
+        <a href="index.htmlapi/school-00-0-0-0#" class="page" value="3">3</a> 
+        <a href="index.htmlapi/school-00-0-0-0#" class="page" value="4">4</a> 
+        <a href="index.htmlapi/school-00-0-0-0#" class="page" value="5">5</a> 
+        <a href="index.htmlapi/school-00-0-0-0#" class="page gb_page_next" title="下一页" value="2">下一页</a> 
+        <a href="index.htmlapi/school-00-0-0-0#" class="page gb_page_last" value="141">末页</a> 
+       </div> 
+      </div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<common-end></common-end>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/commit.js"></script>
+	<script type="text/javascript" src="js/schinfo.js"></script>
+</html>

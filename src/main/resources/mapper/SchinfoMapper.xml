@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.zhddk.Springv1.dao.SchinfoMapper" >
+	<select id ="searchschinfoByjson" resultType="com.zhddk.Springv1.entity.SchInfo">
+	select 
+		* 
+	from
+		schinfo  
+	where 
+		schlevelname like #{schlevelname}
+	<choose>
+		<when test ="schpro !='不限'">
+			and schpro = #{schpro}  
+		</when>
+	</choose>
+	<choose>
+		<when test ="schtypename !='不限'">
+			and schtypename = #{schtypename}
+		</when>
+	</choose>
+	</select>
+</mapper>
+
+
+
+
+

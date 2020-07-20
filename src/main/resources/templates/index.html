@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		<title>高考志愿汇</title>
+		<link rel="stylesheet" href="./高考志愿汇/ipin-ico.css" />
+		<link rel="stylesheet" href="./高考志愿汇/base.css" />
+		<link rel="stylesheet" href="./高考志愿汇/index.css" />
+		<link rel="stylesheet" href="./高考志愿汇/scorePane.css" />
+		<script src="./高考志愿汇/jquery.min.js "></script>
+		<script type="text/javascript" src="E:\c_language\Html\how2j练习\js\Vue\vue.js"></script>
+		<script type="text/javascript" src="js/commit.js"></script>
+	</head>
+	<script>
+ window.onload = function(){
+	var islogin = getCookie("userName");
+	var isscore = getCookie("score");
+	if(islogin !==''){
+		document.getElementById("login_link").innerHTML =islogin;
+		$("#cglogin").html('<ul class="user-menu-item "><li class="logout"><a>我的志愿表</a></li><li class="logout"><a>我的信息</a></li><li class="logout"><a>帐号安全</a></li><li class="logout"><a id="logout_link">退出登录</a></li></ul>');
+		$(".product").html('<a href="myapply.html">个人中心</a>');
+		$(".zhiyuan").html('<a href="myspace.html">填志愿</a>');
+		if(isscore !==''){
+			$(".zhiyuan").html('<a href="applysch.html">填志愿</a>');
+			$("#sc").innerHTML = getCookie("score");
+			$("#ra").innerHTML = getCookie("ScoreRank");
+			$("#2").removeClass("hidden");
+			$("#1").addClass("hidden");
+		}
+	}
+}
+
+$(function(){
+	$("#logout_link").live("click",function(){
+		document.cookie = "userName=";
+		document.cookie = "passWord=";
+		document.cookie = "score=";
+		document.cookie = "ScoreRank=";
+		document.cookie = "tele=";
+		window.location.reload(true);
+	});
+	$("#cglogin").live("mouseout",function(){
+		$("#cglogin").style.display = "block";
+	});
+})
+
+
+var realScore = $("input[name='realScore']");
+var inputScoreRank = $("input[name='inputScoreRank']");
+	$(function(){
+		$(".submit-btn ui-btn").click(function(){
+			if(getCookie("score")==""){
+			$ajax({
+				type:"POST",
+				url:"",
+				data:{
+					"Score":realScore,
+					"ScoreRank":inputScoreRank,
+					"username":$("#login_link")
+				},
+				dataType: "JSON",
+				async:false,
+				success:function(data){  
+					var exp = new Date();
+            		exp.setTime(exp.getTime() + 60 * 1000 * 60 * 24); //24小时
+					document.cookie = "score="+ $("input[name='realScore']").val()+";expires=" + exp.toGMTString();
+					document.cookie = "scoreRank="+ $("input[name='ScoreRank']").val()+";expires=" + exp.toGMTString();
+					$("#sc").innerHTML = realScore;
+					$("#ra").innerHTML = inputScoreRank;
+					$("#2").removeClass("hidden");
+					$("#1").addClass("hidden");
+				}
+			})
+			}else{
+				window.location.href ="applysch.html";
+			}
+			
+		})
+	})
+ </script>
+	<body>
+		<h1 class="page-main-title">高校院校大全-高考志愿汇</h1>
+		<input type="text" hidden="" id="navTopValue" value="findSchool" />
+		<div class="hidden">
+			<a href="index.html"> <img src="./高考志愿汇/pro-tips-logo.png" /> </a>
+		</div>
+		<div class="g-head">
+			<div class="topNav clear">
+				<div class="content clear">
+					<ol class="topMenu fr">
+						<li class="topMenu-item">
+							<div class="act-vip">
+								<a href="" rel="nofollow" class="agent"> <span>回到首页</span> </a>
+							</div>
+						</li>
+						<li class="topMenu-item">
+							<div class="act-vip">
+								<a href="" rel="nofollow" class="agent"> <span>新手教程</span> </a>
+							</div>
+						</li>
+						<li class="topMenu-item">
+							<div class="act-vip">
+								<a href="" target="_blank" rel="nofollow" class="agent"> <span>快速通道</span> </a>
+							</div>
+						</li>
+						<li class="topMenu-item">
+							<div class="act-vip">
+								<span><a href="vip.html">开通</a></span> |
+								<span class="btn-activate-vip"><a href="vip.html">激活 VIP</a></span>
+							</div>
+						</li>
+						<li class="topMenu-item">
+							<div class="act-user">
+								<span id="login_link"><a href="login.html">登录/注册</a></span>
+								<div class="drop user-menu" id="cglogin" style=" width:100px">
+									<ul class="user-menu-item ">
+										<li class="logout"><a href="login.html">请先登录</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ol>
+				</div>
+			</div>
+			
+			<div class="m-main-menu-wrap">
+				<div class="m-main-holder clear">
+					<div class="m-main-menu content">
+						<div class="logo-gkzyh fl">
+							<a href="index.html"><img class="logo" src="./高考志愿汇/logo-v7.png" /></a>
+						</div>
+						<div class="m-search">
+							<div class="m-input searchBar clear">
+								<input type="text" placeholder="搜索学校、专业" class="js-searchField" />
+								<i class="u-search js-searchIcon"></i>
+								<a href="javascript:;" class="f-btn js-searchBtn ">搜索</a>
+							</div>
+						</div>
+						<div class="m-time-end"></div>
+					</div>
+				</div>
+				<div class="m-nav-warp clear">
+					<ul class="content">
+						<li class="index active"><a href="index.html">首页</a></li>
+						<li class="zhiyuan"><a href="applysch.html">填志愿</a></li>
+						<li class="findSchool"><a href="schoolinfo.html">找学校</a></li>
+						<li class="findMajor"><a href="findMajor.html">找专业</a></li>
+						<li class="rankingList"><a href="">排行榜</a></li>
+						<li class="solve"><a href="solve.html">报考指导</a></li>
+						<li class="product"><a href="login.html">个人中心</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="banner" id="banner">
+			<!-- 图片导引 -->
+			<ul id="banner_img" class="banner_img">
+				<li class="item1" style="display: block;"> <a target="_blank" class="content" href="" data-id="1" data-pos="4"
+					 data-report="1" data-isconvert="false" data-isvalidate="true"><img width="100%" height="360px" src="./高考志愿汇/first.png" /></a>
+				</li>
+				<li class="item2" style="display: none;"><img src="./高考志愿汇/first.png" /> <a target="_blank" class="content" href=""
+					 data-id="2" data-pos="4" data-report="1" data-isconvert="false" data-isvalidate="true"></a> </li>
+			</ul>
+			<div class="content">
+				<div id="banner_ctr" class="banner_ctr ">
+					<a href="javascript:;" class="ctr_btn"></a>
+					<a href="javascript:;" class=""></a>
+				</div>
+			</div>
+		</div>
+		<div id="scoreInputWrap" class="scoreInputWrap content">
+			<div class="scoreInputSheet">
+				<div id="inputScoreForm" class="score-form">
+					<p class="score-legend">模拟高考志愿填报</p>
+					<div class="score-fields">
+						<div class="score-fields-wrap " id="a">
+							<div class="inputField-group">
+								<div class="inputField ui-drop-wrap ui-fold fl" data-key="prov">
+									<span class="input-txt">Z 浙江</span>
+								</div>
+								<div class="inputField-group require-rank">
+									<div class="inputField">
+										<i class="input-require active">*</i>
+										<label class="input-label">预估总分</label>
+										<input type="text" name="realScore" class="realScore" placeholder="输入预估分数" autocomplete="off" autofocus="autofocus" />
+										<span class="suffix">分</span>
+									</div>
+									<div class="inputField rank-fields">
+										<i class="input-require"> * </i>
+										<label class="input-label">预估排名</label>
+										<input type="text" name="inputScoreRank" class="inputScoreRank" value="" placeholder="输入预估排名" autocomplete="off" />
+										<span class="suffix">名</span>
+									</div>
+								</div>
+								<div class="ui-radio-group diploma_id  clear hidden" data-key="diploma_id" style="margin-right: 10px">
+									<div class="fl">
+										<label class="ui-radio-group-label">填报批次</label>
+									</div>
+								</div>
+							</div>
+							<p class="inputField-tips commom">依据往年招录数据进行推荐，最新数据将在6月更新</p>
+						</div>
+						<ol class="score-board hidden" id="b">
+							<li>省份 <span class="score-infor"> 浙江 </span> </li>
+							<li>预估总分 <span class="score-infor" id="sc"> 0 分 </span> </li>
+							<li>预估排名 <span class="score-infor" id="ra"> --- 名 </span> </li>
+						</ol>
+						<div class="submit-btn ui-btn">
+							开始推荐学校
+							<div class="btn-decor"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="g-rank">
+			<!-- 院校推荐 -->
+			<div class="m-title content">
+				<p> 院校推荐 <a href="javascript:;" class="js-changeScore action"> 登录后 </a> <span>推荐更适合你的院校</span> </p>
+			</div>
+			<div class="m-wrap g-rank-content content clear">
+				<div class="commend-list-wrap ">
+					<div class="commend-list">
+						<div class="list-wrap">
+							<ol class="clear">
+								<li> <a href="">
+										<div class="cell">
+											<img src="./高考志愿汇/img/7.png" />
+										</div>
+										<p class="item-name" title="浙江大学"> 浙江大学 </p>
+										<p class="item-info" title="杭州市"> 杭州市 </p>
+									</a> </li>
+								<li> <a href="">
+										<div class="cell">
+											<img src="./高考志愿汇/img/6.png" />
+										</div>
+										<p class="item-name" title="浙江工业大学"> 浙江工业大学 </p>
+										<p class="item-info" title="杭州市"> 杭州市 </p>
+									</a> </li>
+								<li> <a href="">
+										<div class="cell">
+											<img src="./高考志愿汇/img/5.png" />
+										</div>
+										<p class="item-name" title="浙江中医药大"> 浙江中医药大 </p>
+										<p class="item-info" title="杭州市"> 杭州市 </p>
+									</a> </li>
+								<li> <a href="">
+										<div class="cell">
+											<img src="./高考志愿汇/img/3.png" />
+										</div>
+										<p class="item-name" title="浙江理工大学"> 浙江理工大学 </p>
+										<p class="item-info" title="杭州市"> 杭州市 </p>
+									</a> </li>
+								<li> <a href="">
+										<div class="cell">
+											<img src="./高考志愿汇/img/4.png" />
+										</div>
+										<p class="item-name" title="温州医科大学"> 温州医科大学 </p>
+										<p class="item-info" title="温州市"> 温州市 </p>
+									</a> </li>
+								<li> <a href="">
+										<div class="cell">
+											<img src="./高考志愿汇/img/2.png" />
+										</div>
+										<p class="item-name" title="浙江林学院"> 浙江林学院 </p>
+										<p class="item-info" title="杭州市"> 杭州市 </p>
+									</a> </li>
+								<li> <a href="">
+										<div class="cell">
+											<img src="./高考志愿汇/img/1.png" />
+										</div>
+										<p class="item-name" title="浙江海洋学院"> 浙江海洋学院 </p>
+										<p class="item-info" title="舟山市"> 舟山市 </p>
+									</a> </li>
+								<li class="speic"> <a href="javascript:;" class="see-more">
+										<div class="cell">
+											<div class="commend-item-more"></div>
+										</div>
+										<p class="item-name" title="查看更多"> 查看更多 </p>
+									</a> </li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="m-test">
+			<!-- 测评选专业 -->
+			<div class="content clear">
+				<div class="m-interest-test">
+					<div class="m-title">
+						测评选专业
+						<i class="icon"></i>
+						<p class="tip mbti-tip"> <span class="tip_triangle"></span> MBTI性格测评与霍兰德兴趣测评，帮你从性格与兴趣两方面深入了解自己的特点。
+							根据测评结果，可以为你的志愿选择及生涯规划提供科学的参考 </p>
+						<span class="m-title-more"> <a href="">查看推荐专业 &gt;&gt;</a> </span>
+					</div>
+					<ol>
+						<li class="clear">
+							<div class="m-test-img test1"></div>
+							<div class="m-test-content">
+								<h5>性格测试推专业</h5>
+								<p>MBTI性格测评，帮你清晰认知自身性格优势</p>
+							</div>
+							<div class="m-test-link link-interest MBTI" data-token="undefined">
+								<a href="javascript:;">开始测试</a>
+							</div>
+						</li>
+						<li class="clear">
+							<div class="m-test-img test2"></div>
+							<div class="m-test-content">
+								<h5>兴趣测试推专业</h5>
+								<p>霍兰德兴趣测评，帮你发现自己的兴趣倾向</p>
+							</div>
+							<div class="m-test-link link-test HOLLAND" data-token="undefined">
+								<a href="javascript:;">开始测试</a>
+							</div>
+						</li>
+					</ol>
+				</div>
+				<div class="m-chance-test">
+					<div class="m-title">
+						测录取概率
+						<i class="icon"></i>
+						<p class="tip mbti-tip"> <span class="tip_triangle"></span> 根据科学的位次分析法得到。 </p>
+					</div>
+					<div class="m-chance-cotent">
+						<ol>
+							<li> <i></i> <label class="input-label">你的高考成绩</label> <input type="text" class="test-input" placeholder="输入你的高考成绩" />
+							</li>
+							<li> <i></i> <label class="input-label">你的理想高校</label>
+								<div class="por-score search-school">
+									<input type="text" class="inschool test-input" placeholder="输入你的理想高校" />
+									<div class="dropdown-box" style="display: none;"></div>
+								</div>
+							</li>
+						</ol>
+						<a class="go-forecast" href="javascript:;">开始预测</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="g-product">
+			<!-- 专业介绍 +-->
+			<div class="m-wrap content">
+				<div class="m-title">
+					<p>高考新形势</p>
+				</div>
+				<div class="m-case m-media">
+					<ul class="clear">
+						<li class="m-video-h j-video ">
+							<div class="m-video">
+								<img src="./高考志愿汇/know1-bg.jpg" alt="媒体图" width="100%" height="100%" />
+								<div class="ops_box"></div>
+								<i class="play_btn"></i>
+								<div class="vops_btm">
+									<p class="p1">志愿填报新模式</p>
+								</div>
+							</div>
+							<div class="video-layer"></div>
+						</li>
+						<li class="m-video-h j-video ">
+							<div class="m-video">
+								<img src="./高考志愿汇/know2-bg.png" alt="媒体图" width="100%" height="100%" />
+								<div class="ops_box"></div>
+								<i class="play_btn"></i>
+								<div class="vops_btm">
+									<p class="p1">“人工智能+志愿填报”新模式</p>
+								</div>
+							</div>
+							<div class="video-layer"></div>
+						</li>
+						<li class="m-video-h j-video ">
+							<div class="m-video">
+								<img src="./高考志愿汇/know3-bg.png" alt="媒体图" width="100%" height="100%" />
+								<div class="ops_box"></div>
+								<i class="play_btn"></i>
+								<div class="vops_btm">
+									<p class="p1">高考志愿能否决定你的未来？</p>
+								</div>
+							</div>
+							<div class="video-layer"></div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-title">
+					<p>了解更多</p>
+				</div>
+				<div class="m-cooperate">
+					<ul>
+						<li><a href="http://www.moe.gov.cn/" target="_blank" rel="nofollow"><img src="./高考志愿汇/company1.png" alt="" /></a></li>
+						<li><a href="http://jyt.zj.gov.cn/" target="_blank" rel="nofollow"><img src="./高考志愿汇/company2.png" alt="" /></a></li>
+						<li><a href="http://www.baidu.com" target="_blank" rel="nofollow"><img src="./高考志愿汇/company3.png" alt="" /></a></li>
+						<li><a href="" target="_blank" rel="nofollow"><img src="./高考志愿汇/company4.png" alt="" /></a></li>
+						<li><a href="" target="_blank" rel="nofollow"><img src="./高考志愿汇/company5.png" alt="" /></a></li>
+						<li><a href="" target="_blank" rel="nofollow"><img src="./高考志愿汇/company6.png" alt="" /></a></li>
+						<li class="f-mr0"><a href="" target="_blank" rel="nofollow"><img src="./高考志愿汇/company7.png" alt="" /></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="g-honor">
+		</div>
+		<div class="footer">
+			<div class="content">
+				<div class="clear">
+					<div class="footer-left">
+						<div class="clear">
+							<div class="footer-list">
+								<h3>VIP</h3>
+								<ul>
+									<li> <a href="" class="js-buy">购买VIP</a> </li>
+									<li><a href="javascript:;" class="btn-activate-vip">激活</a></li>
+								</ul>
+							</div>
+							<div class="footer-list">
+								<h3>常见问题</h3>
+								<ul>
+									<li><a href="" rel="nofollow">产品使用</a></li>
+									<li><a href="" rel="nofollow">会员充值</a></li>
+									<li><a href="" rel="nofollow">功能介绍</a></li>
+								</ul>
+							</div>
+							<div class="footer-list">
+								<ul>
+									<h3>关于我们</h3>
+									<li><a href="" rel="nofollow">团队介绍</a></li>
+									<li><a href="" rel="nofollow">联系我们</a></li>
+									<li><a href="" rel="nofollow">商务合作</a></li>
+									<li><a href="" rel="nofollow">服务条款</a></li>
+								</ul>
+							</div>
+							<div class="footer-list">
+								<h3>关注我们</h3>
+								<ul>
+									<li>
+										<img src="高考志愿汇/img/dy_ewm.png" alt="" />
+										<h3>云订阅号</h3>
+									</li>
+								</ul>
+
+							</div>
+							<div class="footer-list">
+								<h3>~</h3>
+								<ul>
+									<li>
+										<img src="高考志愿汇/img/dy_ewm.png" alt="" />
+										<h3>云服务号</h3>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+					<div class="footer-right">
+						<h3>来电咨询:</h3>
+						<p class="phone">400-xxx-xxxx</p>
+						<p>期待为您提供帮助</p>
+						<p>本服务只提供参考，不代表一定成功</p>
+					</div>
+				</div>
+				<div class="service-tel">
+					客服热线：13456789
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

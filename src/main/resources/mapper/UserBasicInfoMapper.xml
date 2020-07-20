@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.zhddk.Springv1.dao.UserBasicInfoMapper">
+	<!-- 添加用户 -->
+	<insert id="addUser" >
+		insert into 
+			userbasicinfo
+			value(	#{userid},#{username},
+					#{userpwd},#{usersex},
+					#{userphone},#{useremail},
+					#{useradmin},#{delect})
+	</insert>
+	
+	<!-- 删除用户 -->
+	<update id="deleteUserById" >
+		update
+			userbasicinfo
+		set
+			delect = 1
+		where
+			userid = #{userid}
+	</update>
+	
+	<update id="updateUser">
+		update 
+			userbasicinfo 
+		set 
+			username=#{username},userpwd=#{userpwd},
+			usersex=#{usersex},userphone=#{userphone},
+			useremail=#{useremail},useradmin=#{useradmin} 
+		where 
+			userid=#{userid}
+	</update>
+	
+	<!-- 查询所有用户 -->
+	<select id="searchAllUsers" resultType ="com.zhddk.Springv1.entity.UserBasicInfo">
+	select
+		* 
+	from 
+		userbasicinfo
+	</select>
+	
+	<!-- 查询单个用户 -->
+	<select id="searchUserByusername" resultType ="com.zhddk.Springv1.entity.UserBasicInfo">
+		select 
+			*
+		from
+			userbasicinfo
+		where
+			username = #{username} and delect = 0
+	</select>
+	
+	
+</mapper>
+
+
+
+
+

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		<title>填志愿</title>
+		<link rel="stylesheet" href="./高考志愿汇/zy.css" />
+		<link rel="stylesheet" href="./高考志愿汇/ipin-ico.css" />
+		<link rel="stylesheet" href="./高考志愿汇/base.css" />
+		<link rel="stylesheet" href="./高考志愿汇/school.css" />
+		<link rel="stylesheet" href="./高考志愿汇/gaokao_fe2.css" />
+	</head>
+	<body avalonctrl="root">
+		<div class="g-head">
+			<common-head></common-head>
+			<div class="m-main-menu-wrap">
+				<div class="m-main-holder clear">
+					<div class="m-main-menu content">
+						<div class="logo-gkzyh fl">
+							<a href="index.html"><img class="logo" src="./高考志愿汇/logo-v7.png" /></a>
+						</div>
+						<div class="m-search">
+							<div class="m-input searchBar clear">
+								<input type="text" placeholder="搜索学校、专业" class="js-searchField" />
+								<i class="u-search js-searchIcon"></i>
+								<a href="javascript:;" class="f-btn js-searchBtn ">搜索</a>
+							</div>
+						</div>
+						<div class="m-time-end"></div>
+					</div>
+				</div>
+				<div class="m-nav-warp clear">
+					<ul class="content">
+						<li class="index"><a href="index.html">首页</a></li>
+						<li class="zhiyuan active"><a href="applysch.html">填志愿</a></li>
+						<li class="findSchool"><a href="schoolinfo.html">找学校</a></li>
+						<li class="findMajor"><a href="findMajor.html">找专业</a></li>
+						<li class="rankingList"><a href="">排行榜</a></li>
+						<li class="solve"><a href="solve.html">报考指导</a></li>
+						<li class="product"><a href="login.html">个人中心</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="content" class="first-election-page">
+			<div id="pipe_1">
+				<div class="grid clearfix lock_stats">
+					<div class="left_cont">
+						<div class="menu_block">
+							<div class="title_box">
+								筛选学校
+							</div>
+							<ul class="conditions_list select_box">
+								<li class="select_title" @mouseenter="enter(0)" @mouseleave="leave(0)">
+									<a ><i class="more_sj" ></i>
+										<span class="txt_value">学校所在地</span>
+									</a>
+									<div class="r_cbox_wrap" style="top: -1;" v-show ="show[0]">
+										<div class="r_cbox_insbox">
+											<div class="unlimited_box">
+												<div class="a_cbox_wrap">
+													<div class="a_cbox">
+														<span class="cbox_txt active" value="不限" id="f">不限</span>
+													</div>
+												</div>
+											</div>
+											<div class="scroll_box card-area-plug jspScrollable" style="padding: 0px; width: 752px; height:280px">
+												<div class="jspContainer" style="width: 752px; height: 280px;">
+													<div class="jspPane">
+														<div class="details_box clearfix" style="width:100%" title="xx">
+															<div class="a_cbox_wrap" v-for="(p,index) in place">
+																<div class="a_cbox">
+																	<span class="cbox_txt place" v-bind:value="value[index]">{{p}}</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="select_title" @mouseenter="enter(1)" @mouseleave="leave(1)"> 
+									<a><i class="more_sj"></i><span>本科批</span></a>
+									<div class="menu-bd-box" v-show = "show[1]">
+										<i class="left_line"></i>
+										<ul class="menu-bd">
+											<li class="a_1 cz" value="本科">本科批</li>
+											<li class="a_1" value="专科">专科批</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<br /> <br /> <br /> <br />
+						<div class="menu_block">
+							<div class="title_box">
+								筛选专业
+							</div>
+							<ul class="conditions_list select_box">
+								<li class="select_title" @mouseenter="enter(2)" @mouseleave="leave(2)"> 
+								<a><span class="txt_value">按分类选专业</span></a> 
+									<div class="r_cbox_wrap" style="top: -27px;" v-show="show[2]">
+										<div class="r_cbox_insbox">
+											<div class="unlimited_box">
+												<div class="a_cbox_wrap">
+													<div class="a_cbox">
+														<span class="cbox_txt active" id="f2">不限</span>
+													</div>
+												</div>
+											</div>
+											<div class="scroll_box card-area-plug jspScrollable" style="overflow: hidden; padding: 0px; width: 752px;"
+											 tabindex="0">
+												<div class="jspContainer" style="overflow-y:auto;width: 752px; height: 445px;">
+													<div class="jspPane" style="padding: 0px; top: 0px; left: 0px; width: 742px;">
+														<div class="a_type clearfix" v-for ="zy in zyTypes">
+															<div class="classes_box">
+																<div class="a_cbox_wrap">
+																	<div class="a_cbox">
+																		<span class="cbox_txt" v-bind:title="zy.name">{{zy.name}}:</span>
+																	</div>
+																</div>
+															</div>
+															<div class="details_box clearfix">
+																<div class="a_cbox_wrap" v-for="c in zy.category">
+																	<div class="a_cbox">
+																		<span class="cbox_txt major">{{c}}</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="main_cont">
+						<div class="re-title">
+							<div class="txt">
+								为您找到在
+							</div>
+							<div id="x1" class="cur" onclick="change1()">
+								<!-- <em>0</em>所 -->学校专业
+							</div>
+							<div id="x2" onclick="change2()">
+								<!-- <em>0</em>个 -->候选志愿
+							</div> <button id="toExcel">导出我的志愿</button>
+						</div>
+						<div id="zi_t" style="display:none;">
+							<table id="tab">
+								<tr>
+									<th width="8%">序号</th>
+									<th width="12%">学校代码</th>
+									<th width="22%">学校名称</th>
+									<th width="12%">专业代码</th>
+									<th width="22%">专业名称</th>
+									<th width="24%">操作<th>
+								</tr>
+		<!-- 						<tr>
+									<td>1</td>
+									<td>1</td>
+									<td>2</td>
+									<td>3</td>
+									<td>4</td>
+									<td><button id="del">删除</button>
+										<nobr>
+											<button id="up">上移</button>
+											<nobr>
+												<button id="down">下移</button>
+									</td>
+								</tr> -->
+							</table>
+							<input type="button" value="增添" class="add" style="float:right;" name="sx">
+							<button id="fill">智能填选</button>
+							<br>
+						</div>
+						<div id="sx_t" style="position: relative ">
+							<table id="tab2">
+								<tr>
+									<th width="15%">学校代码</th>
+									<th width="20%">学校名称</th>
+									<th width="15%">专业代码</th>
+									<th width="20%">专业名称</th>
+									<th width="15%">录取概率</th>
+									<th width="15%">操作<th>
+								</tr>
+								<!-- <tr>
+									<td>0</td>
+									<td>1</td>
+									<td>2</td>
+									<td>3</td>
+									<td>4</td>
+									<td><input type="button" value="加入候选" class="add" name="jr"></td>
+								</tr>
+ -->
+
+							</table>
+							<div class="gb_pages">	
+								<a class="first">首页</a>
+								<a name="up">上一页</a>
+								<a class="gb_page_cur">1</a>
+								<a>2</a>
+								<a>3</a>
+								<a>4</a>
+								<a>5</a>
+								<a name="down">下一页</a>
+								<a class="last">末页</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="footer">
+			<common-end></common-end>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/vue.min.js"></script>
+	<script type="text/javascript" src="js/commit.js"></script>
+	<script type="text/javascript" src="js/applyschScreen.js"></script>
+	<script>
+		new Vue({
+			el: "#content",
+			data: {
+				place: allPlace,//学校省份
+				value: allPlaceValue,//学校省份（有省/市字）
+				schtypes: scTypes,//学校种类
+				levels: levels,//学校专本科
+				zyTypes:zyTypes,//专业种类
+				show:[false,false,false]//标签的显示与隐藏
+			},
+			methods:{
+				enter:function(index){//鼠标进入时显示
+					this.show.splice(index,1,true);
+				},
+				leave:function(index){//鼠标退出时隐藏
+					this.show.splice(index,1,false);
+				}
+			}
+		})
+	</script>
+	<script>
+		window.onbeforeunload = function() { //关闭时 保存当前状态
+			localStorage.clear();
+			var tab = $("#tab");
+			for (var i = 1; i < $("#tab tr").length; i++) {
+				if (tab.eq(0).find("tr").eq(i).find("td").eq(1).children().length > 0) {
+					localStorage.setItem(i, JSON.stringify({
+						Lx: 1,
+						Id: tab.eq(0).find("tr").eq(i).find("td").eq(0).text(),
+						Xd: tab.eq(0).find("tr").eq(i).find("td").eq(1).find("input").val(),
+						Xn: tab.eq(0).find("tr").eq(i).find("td").eq(2).find("input").val(),
+						Zd: tab.eq(0).find("tr").eq(i).find("td").eq(3).find("input").val(),
+						Zn: tab.eq(0).find("tr").eq(i).find("td").eq(4).find("input").val()
+					}));
+				} else {
+					localStorage.setItem(i, JSON.stringify({
+						Lx: 2,
+						Id: tab.eq(0).find("tr").eq(i).find("td").eq(0).text(),
+						Xd: tab.eq(0).find("tr").eq(i).find("td").eq(1).text(),
+						Xn: tab.eq(0).find("tr").eq(i).find("td").eq(2).text(),
+						Zd: tab.eq(0).find("tr").eq(i).find("td").eq(3).text(),
+						Zn: tab.eq(0).find("tr").eq(i).find("td").eq(4).text()
+					}));
+				}
+			}
+		};
+		window.onload = function() {
+			//写入关闭时的状态
+			var html =
+				"<tr><th width='8%'>序号</th><th width='12%'>学校代码</th><th width='22%'>学校名称</th><th width='12%'>专业代码</th><th width='22%'>专业名称</th><th width='24%'>操作<button id ='clearAll'>清空</button><th></tr>";
+			for (let i = 1; localStorage.getItem(i) != null; i++) {
+				var tabon = localStorage.getItem(i);
+				var on = JSON.parse(tabon);
+				if (on.Lx == 1) {
+					html += "<tr><td>" + on.Id + "</td><td><input value ='" + on.Xd + "'></input></td><td><input value ='" + on.Xn +
+						"'></input></td><td><input value ='" + on.Zd + "'></input></td><td><input value ='" + on.Zn +
+						"'></input></td><td><button id ='del'>删除</button>&nbsp;<nobr><button id ='up'>上移</button><nobr>&nbsp;<button id ='down'>下移</button></td></tr>";
+				} else {
+					html += "<tr><td>" + on.Id + "</td><td>" + on.Xd + "</td><td>" + on.Xn + "</td><td>" + on.Zd + "</td><td>" + on.Zn +
+						"</td><td><nobr><button id ='del'>删除</button><nobr>&nbsp;<button id ='up'>上移</button><nobr>&nbsp;<button id ='down'>下移</button></td></tr>";
+				}
+			}
+			$("#tab").html(html);
+
+		};
+	</script>
+
+	<script>
+		function change1() {
+			var c1 = document.getElementById("x1");
+			var c2 = document.getElementById("x2");
+			var dt = c1.parentNode.nextElementSibling;
+			var dt2 = c1.parentNode.nextElementSibling.nextElementSibling;
+			c1.className = "cur";
+			c2.className = "";
+			dt.style.display = "none";
+			dt2.style.display = "block";
+		}
+
+		function change2() {
+			var c1 = document.getElementById("x1");
+			var c2 = document.getElementById("x2");
+			var dt = c1.parentNode.nextElementSibling;
+			var dt2 = c1.parentNode.nextElementSibling.nextElementSibling;
+			c2.className = "cur";
+			c1.className = "";
+			dt.style.display = "block";
+			dt2.style.display = "none";
+		}
+	</script>
+	<script>
+		var x = new Array("_%"); //存放学校
+		var y = new Array("_%"); //存放专业
+		var lenghtx = 1;
+		var lenghty = 1;
+		var mdata = { //请求后端的参数
+			"schpro": x,
+			"schlevelname": "本科",
+			"zy": y,
+			"pageno": 1,
+			"username": getCookie("userName")
+		}
+		var p = 0;
+		var upLoad = {
+			method: function(mdata) {
+				$.ajax({
+					type: "POST", //请求方式
+					url: '/applysch.html/action', //指定的链接
+					traditional: true,
+					data: mdata,
+					dataType: "JSON", //或"TEXT" //请求返回的数据类型
+					async: false, //是否需要同步
+					success: function(data) {
+						$("#tab2").html(
+							'<th width="15%">学校代码</th><th width="20%">学校名称</th><th width="15%">专业代码</th><th width="20%">专业名称</th><th width="15%">录取概率</th><th width="15%">操作<th>'
+						);
+						$.each(data, function(key, value) {
+							$("#tab2").append('<tr><td>' + value.schcode + '</td><td>' + value.schname + '</td><td>' + value.zycode +
+								'</td><td>' + value.zyname + '</td><td>' + value.forecast +
+								'</td><td><input type="button" value = "加入候选" class = "add" name ="jr"></td></tr>');
+							p = Math.ceil(value.sum / 20);
+						});
+						var pages = "";
+						if (mdata.pageno != 1) {
+							pages += '<a class = "first">首页</a>';
+						}
+						pages += '<a name="up">上一页</a>';
+						if (p < 5) { //根据后端传的页数写页码
+							for (var j = 1; j <= p; j++) {
+								if (mdata.pageno == j) {
+									pages += "<a class='gb_page_cur'>" + j + "</a>";
+								} else {
+									pages += "<a>" + j + "</a>";
+								}
+							}
+						} else {
+							if (mdata.pageno <= 3) {
+								for (var j = 1; j <= 5; j++) {
+									if (mdata.pageno == j) {
+										pages += "<a class='gb_page_cur'>" + j + "</a>";
+									} else {
+										pages += "<a>" + j + "</a>";
+									}
+								}
+							} else if (mdata.pageno > p - 3) {
+								for (var j = p - 4; j <= p; j++) {
+									if (mdata.pageno == j) {
+										pages += "<a class='gb_page_cur'>" + j + "</a>";
+									} else {
+										pages += "<a>" + j + "</a>";
+									}
+								}
+							} else {
+								for (var j = mdata.pageno - 2; j <= mdata.pageno + 2; j++) {
+									if (mdata.pageno == j) {
+										pages += "<a class='gb_page_cur'>" + j + "</a>";
+									} else {
+										pages += "<a>" + j + "</a>";
+									}
+								}
+							}
+						}
+						pages += '<a name ="down">下一页</a>';
+						if (mdata.pageno != p) {
+							pages += '<a class = "last">末页</a>';
+						}
+						$(".gb_pages").html(pages);
+					}
+				});
+			}
+		}
+
+
+		$(function() {
+			upLoad.method(mdata);
+			$(".cbox_txt").on("click", function() {
+				if ($(this).attr("id") == "f" && x.indexOf("_%") < 0) {
+					x = ["_%"];
+					lenghtx = 1;
+					$(".place").removeClass("active");
+					$("#f").addClass("active");
+				} else if ($(this).attr("id") == "f2" && y.indexOf("_%") < 0) {
+					y = ["_%"];
+					lenghty = 1;
+					$(".major").removeClass("active");
+					$("#f2").addClass("active");
+				} else if ($(this).parent().parent().parent().attr("title") == "xx") { //判断是否为学校
+					var t = $(this).attr("value");
+					if (x.indexOf(t) < 0) { //判断是否已经点击
+						x.push(t);
+						lenghtx++;
+						$(this).addClass("active");
+						if (x.indexOf("_%") >= 0) { //判断不限是否已经在内
+							x.splice(x.indexOf("_%"), 1);
+							lenghtx--;
+							$("#f").removeClass("active");
+						}
+					} else {
+						x.splice(x.indexOf(t), 1);
+						lenghtx--;
+						$(this).removeClass("active");
+						if (lenghtx == 0) { //如果全部都没选中
+							x.push("_%");
+							lenghtx++;
+							$("#f").addClass("active");
+						}
+					}
+				} else {
+					var t = $(this).text();
+					if (y.indexOf(t) < 0 && $(this).attr("title") == null) {
+						//判断是否已经点击和小标题不算
+						y.push(t);
+						lenghty++;
+						$(this).addClass("active");
+						if (y.indexOf("_%") >= 0) {
+							//判断"不限"是否已经在内
+							y.splice(y.indexOf("_%"), 1);
+							lenghty--;
+							$("#f2").removeClass("active");
+						}
+					} else if ($(this).attr("title") == null) {
+						y.splice(y.indexOf(t), 1);
+						lenghty--;
+						$(this).removeClass("active");
+						if (lenghty == 0) {
+							//如果全部都没选中
+							y.push("_%");
+							lenghty++;
+							$("#f2").addClass("active");
+						}
+					}
+				}
+				mdata.pageno = 1;
+				upLoad.method(mdata);
+			});
+
+
+			$(".a_1").click(function() {
+				$(this).addClass("cz");
+				$(this).siblings().removeClass("cz");
+				data.schlevelname = $(this).attr("value");
+				mdata.pageno = 1;
+				upLoad.method(mdata);
+			});
+
+
+			$(".gb_pages a").on("click", function() {
+				if ($(this).attr("class") == "last") {
+					mdata.pageno = p;
+				} else if ($(this).attr("class") == "frist") {
+					mdata.pageno = 1;
+				} else if ($(this).attr("name") == "up" && mdata.pageno > 1) {
+					mdata.pageno--;
+				} else if ($(this).attr("name") == "down" && mdata.pageno < p) {
+					mdata.pageno++;
+				} else if (mdata.pageno != parseInt($(this).text())) {
+					mdata.pageno = parseInt($(this).text());
+				} else {
+					return;
+				}
+				upLoad.method(mdata);
+			});
+
+
+			$("#fill").on("click", function() {
+				if ($("#tab tr").length <= 80) {
+					$.ajax({
+						type: "POST", //请求方式
+						url: '/applysch.html/actionAI', //指定的链接
+						traditional: true,
+						data: {
+							existing: 80 - $("#tab tr").length + 1,
+							username: getCookie("userName")
+						},
+						dataType: "JSON", //或"TEXT" //请求返回的数据类型
+						async: false, //是否需要同步
+						success: function(data) {
+							$.each(data, function(key, value) {
+								$("#tab").append('<tr><td>' + $("#tab tr").length + '</td><td>' + value.schcode + '</td><td>' + value.schname +
+									'</td><td>' + value.zycode + '</td><td>' + value.zyname +
+									'</td><td><button id ="del">删除</button><nobr><button id ="up">上移</button><nobr><button id ="down">下移</button></td></tr>'
+								);
+							});
+						}
+					});
+				}
+			});
+
+
+		});
+	</script>
+</html>
